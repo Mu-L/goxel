@@ -47,6 +47,7 @@ typedef struct {
 
 typedef struct {
     bool vertex_color;
+    bool visible_only;
     float simplify;
 } export_options_t;
 
@@ -426,6 +427,7 @@ static void gltf_export(const image_t *img, const char *path,
 
     ALLOC(root_node->children, DL_SIZE(img->layers));
     DL_FOREACH(img->layers, layer) {
+        if (options->visible_only && !layer->visible) continue;
         save_layer(&g, root_node, img, layer,
                    palette, palette_pix_size, options);
     }
@@ -446,6 +448,8 @@ static void export_gui(file_format_t *format)
 {
     gui_checkbox(_("Vertex Color"), &g_export_options.vertex_color,
                  _("Save colors as vertex attribute"));
+    gui_checkbox(_("Visible Only"), &g_export_options.visible_only,
+                 _("Exclude hidden layers"));
     gui_input_float(_("Simplify"), &g_export_options.simplify, 0.1,
                     0, 1, "%.1f");
 }
