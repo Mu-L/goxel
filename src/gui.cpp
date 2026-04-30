@@ -54,12 +54,22 @@ bool gui_pan_scroll_behavior(int dir);
 #endif
 #endif
 
+#ifdef __clang__
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wunknown-warning-option"
+#pragma clang diagnostic ignored "-Wnontrivial-memcall"
+#endif
+
 #define IMGUI_DEFINE_MATH_OPERATORS
 // #define IMGUI_DISABLE_OBSOLETE_FUNCTIONS
 
 #include "../ext_src/imgui/imgui.h"
 #include "../ext_src/imgui/imgui_internal.h"
 #include "../ext_src/imgui/ImGuizmo.h"
+
+#ifdef __clang__
+#pragma clang diagnostic pop
+#endif
 
 #ifndef __clang__
 #pragma GCC diagnostic pop

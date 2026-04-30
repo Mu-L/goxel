@@ -32,6 +32,13 @@
 #endif
 #endif
 
+#ifdef __clang__
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wunknown-warning-option"
+#pragma clang diagnostic ignored "-Wnontrivial-memcall"
+#pragma clang diagnostic ignored "-Wuninitialized-const-pointer"
+#endif
+
 #define IMGUI_DEFINE_MATH_OPERATORS
 // #define IMGUI_DISABLE_OBSOLETE_FUNCTIONS
 
@@ -43,5 +50,9 @@
 #include "../ext_src/imgui/ImGuizmo.cpp"
 
 #ifdef __clang__
+#pragma clang diagnostic pop
+#endif
+
+#ifndef __clang__
 #pragma GCC diagnostic pop
 #endif
